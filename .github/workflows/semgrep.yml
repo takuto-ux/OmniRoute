@@ -15,6 +15,7 @@ concurrency:
 jobs:
   semgrep:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     container:
       image: semgrep/semgrep
     steps:

@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { makeProfile, withMockedNow } from "../helpers/accountFallbackProfile.ts";
 
 const accountFallback = await import("../../open-sse/services/accountFallback.ts");
 const accountSelector = await import("../../open-sse/services/accountSelector.ts");
@@ -36,35 +37,6 @@ const {
 
 const { selectAccount } = accountSelector;
 
-/** Build a full ProviderProfile from partial overrides (test helper). */
-function makeProfile(overrides: Record<string, unknown> = {}): any {
-  return {
-    baseCooldownMs: 125,
-    useUpstreamRetryHints: false,
-    maxBackoffSteps: 3,
-    failureThreshold: 60,
-    resetTimeoutMs: 5000,
-    transientCooldown: 125,
-    rateLimitCooldown: 125,
-    maxBackoffLevel: 3,
-    circuitBreakerThreshold: 60,
-    circuitBreakerReset: 5000,
-    providerFailureThreshold: 5,
-    providerFailureWindowMs: 300000,
-    providerCooldownMs: 60000,
-    ...overrides,
-  };
-}
-
-function withMockedNow(now, fn) {
-  const originalNow = Date.now;
-  Date.now = () => now;
-  try {
-    return fn();
-  } finally {
-    Date.now = originalNow;
-  }
-}
 
 test("isOAuthInvalidToken detects refreshable oauth failures", () => {
   assert.equal(

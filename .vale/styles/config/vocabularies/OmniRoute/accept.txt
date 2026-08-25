@@ -48,3 +48,18 @@ locales
 roadmap
 [Ww]ildcard
 upstream
+
+# --- 運用・SRE 用語 (docs/INCIDENT_RESPONSE.md) ---
+[Rr]unbook
+[Rr]unbooks
+SLO
+SLOs
+SLI
+SLIs
+Sev
+Alertmanager
+Prometheus
+Grafana
+oncall
+postmortem
+[Tt]riage

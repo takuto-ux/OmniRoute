@@ -5,8 +5,16 @@
 // unchanged; the sibling account-fallback suites can reuse these instead of
 // re-declaring their own copies.
 
-/** Build a full ProviderProfile from partial overrides (test helper). */
-export function makeProfile(overrides: Record<string, unknown> = {}): any {
+/**
+ * Build a ProviderProfile-shaped object from partial overrides (test helper).
+ *
+ * The return type is left to inference rather than annotated `any`: this module
+ * lives under tests/, where @typescript-eslint/no-explicit-any is an error and
+ * the per-file suppression that covered the old in-suite copy does not apply.
+ * The literal deliberately omits ProviderProfile.maxCooldownMs — the suites that
+ * exercise cooldown capping supply it themselves via `overrides`.
+ */
+export function makeProfile(overrides: Record<string, unknown> = {}) {
   return {
     baseCooldownMs: 125,
     useUpstreamRetryHints: false,
